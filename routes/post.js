@@ -24,15 +24,13 @@ res.json(error).status(400)
     }
 });
 router.post('/', async (req, res) => {
-    try {
-        let collection = await db.collectin("posts")
-        let newDocument = req.body
-        newDocument.date = new Date()
-        let result = await collection.insertOne(newDocument)
-        console.log(result)
-        res.send(result).status(201)
-    }
-        catch (error) {
+        const Restaurant = Restaurant({
+            name: req.body.name,
+        })
+        try {
+            const newRestaurant = await Restaurant.save()
+            res.status(201).json(newRestaurant)
+         } catch (error) {
             res.send(error).status(400)
                 }
             });

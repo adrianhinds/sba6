@@ -1,12 +1,12 @@
-import mongoose from 'mongoose'
-
-const connectDb = async () => {
-    try { 
-        await mongoose.connect(process.env.ATLAS_URI)
-        console.log('Mongoose connected')
-    } catch(e) {
-        console.log(e)
-    }
+import { MongoClient } from 'mongodb';
+import 'dotenv/config'
+const connectionString = process.env.ATLAS_URI || ""
+const client = new MongoClient(connectionString)
+let conn;
+try {
+    conn = await client.connect()
+} catch (error) {
+    console.log(error)
 }
-
-export default connectDb 
+let db = conn.db("restaurants")
+export default db 

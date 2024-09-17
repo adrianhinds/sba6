@@ -1,11 +1,14 @@
 import express from 'express'
-import 'dotenv/config'
-import connectDb from './db.js'
-const Port = 3000
-const app = express()
+import db from './db.js'
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
+const app = express()
+const Port = 3000
+
+
+app.get('/', async (req, res) => {
+    let collection = await db.collection('neighborhoods')
+    let results = await collection.find().limit(5).toArray()
+    res.send(results)
 })
 
 app.listen(Port, () => {
