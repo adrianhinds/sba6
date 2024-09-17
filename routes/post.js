@@ -54,9 +54,8 @@ router.patch('/:id', async (req, res) => {
 });
 router.delete('/:id', async (req, res) => {
     try {
-       const query = { _id: new ObjectId(req.params.id) }
-       let collection = await db.collection("posts")
-       let result = await collection.deleteOne(query)
+       const Updatedpatch = await db.collection("posts")
+       let result = await collection.deleteOne(Updatedpatch);
        res.send(result).status(200)
     }
     catch (error) {
@@ -64,5 +63,15 @@ console.log(error)
 res.send(error).status(400)
     }
 });
-
+router.delete('/', async (req, res) => {
+    try {
+       const boroughs = await db.collection("borough")
+       let result = await collection.deleteMany(boroughs);
+       res.send(result).status(200)
+    }
+    catch (error) {
+console.log(error)
+res.send(error).status(400)
+    }
+});
 export default router;
